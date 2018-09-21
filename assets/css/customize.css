@@ -68,3 +68,8 @@
     color: #ce2b2b;
     cursor: pointer;
 }
+
+.btn-search {
+    background-color: transparent;
+    border: none;
+}
