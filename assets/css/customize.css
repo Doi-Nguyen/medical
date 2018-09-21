@@ -1,0 +1,70 @@
+.post-author-img {
+    max-width: 130px;
+    overflow: hidden;
+
+}
+.post-author-img img {
+    min-width: 140px;
+    object-fit: contain;
+}
+
+.mc-toasts {
+    position: fixed;
+    bottom: 0;
+    left: 20px;
+    color: #fff;
+    border-radius: 2px;
+    visibility: hidden;
+    opacity: 0;
+    z-index: -1;
+    transition: all .3s;
+    min-width: 250px; }
+@media screen and (max-width: 767px) {
+    .mc-toasts {
+        display: none; } }
+.mc-toasts.mc-show {
+    opacity: 1;
+    visibility: visible;
+    z-index: 99999999;
+    bottom: 10px; }
+.mc-toasts .toast {
+    margin-bottom: 10px;
+    background: #04b591;
+    padding: 10px 45px 10px 20px;
+    position: relative; }
+.mc-toasts .toast span {
+    color: #fff; }
+.mc-toasts .toast i {
+    color: #fff;
+    font-size: 21px;
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    cursor: pointer; }
+
+#comments .comments {
+    position: relative;
+}
+#comments .leave-reply-comment {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px;
+    z-index: 999;
+    background: #fff;
+    box-shadow: 0 0 4px rgba(0,0,0,0.12), 0 4px 4px rgba(0,0,0,0.24);
+    display: none;
+}
+#comments .reply-comment-wrap {
+    position: relative;
+}
+#comments .close-form-reply {
+    position: absolute;
+    font-size: 24px;
+    top: 0;
+    right: 0;
+    color: #ce2b2b;
+    cursor: pointer;
+}
