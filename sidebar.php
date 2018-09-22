@@ -1,3 +1,21 @@
+<?php
+
+    $categories = get_the_category();
+    $cat_id = (!empty($categories)) ? $categories[0]->term_id : 0;
+
+    $args = array(
+        'numberposts' => 10,
+        'offset' => 0,
+        'category' => $cat_id,
+        'orderby' => 'post_date',
+        'order' => 'DESC',
+        'post_type' => 'post',
+        'post_status' => 'publish',
+        'suppress_filters' => true
+    );
+    $recent_post = wp_get_recent_posts($args);
+?>
+
 <div class="page-sidebar col-md-3 col-sm-4 col-xs-12">
     <!-- Blog Sidebar -->
     <aside class="sidebar blog-sidebar">
@@ -13,7 +31,6 @@
                                 <?php if (is_single()): ?>
                                     <input type="hidden" name="post_type" value="blog">
                                 <?php endif; ?>
-<!--                                <input type="submit" alt="Search" value="Search" />-->
                             </div>
                         </form>
                     </div>
@@ -26,71 +43,73 @@
                 <div class="widget recent-posts pb-20">
                     <h3 class="widget-title h-title">Recent Posts</h3>
                     <div class="widget-body ptb-30">
-                        <div class="recent-post media">
-                            <div class="post-thumb media-left">
-                                <a href="#">
-                                    <img class="media-object" src="<?php echo THEME_PATH;?>assets/images/blog/thumb_1.jpg" alt="">
-                                </a>
+                        <?php foreach ($recent_post as $key => $post): ?>
+                            <div class="recent-post media">
+                                <div class="post-thumb media-left">
+                                    <a href="<?php echo $post['guid']?>">
+                                        <img class="media-object" src="<?php echo get_the_post_thumbnail_url($post['ID'])?>" alt="post thumb">
+                                    </a>
+                                </div>
+                                <div class="media-body">
+                                    <p class="mb-5">
+                                        <a href="<?php echo $post['guid']?>"><?php echo $post['post_title']?></a>
+                                    </p>
+                                    <span class="color-theme"><i class="fa fa-calendar mr-5"></i> 22 Mar 2017</span>
+                                </div>
                             </div>
-                            <div class="media-body">
-                                <p class="mb-5">
-                                    <a href="#">Lorem ipsum dolor sit amet consetetur</a>
-                                </p>
-                                <span class="color-theme"><i class="fa fa-calendar mr-5"></i> 22 Mar 2017</span>
-                            </div>
-                        </div>
-                        <div class="recent-post media">
-                            <div class="post-thumb media-left">
-                                <a href="#">
-                                    <img class="media-object" src="<?php echo THEME_PATH;?>assets/images/blog/thumb_2.jpg" alt="">
-                                </a>
-                            </div>
-                            <div class="media-body">
-                                <p class="mb-5">
-                                    <a href="#">Vestibulum ante ipsum primis in faucibus luctus</a>
-                                </p>
-                                <span class="color-theme"><i class="fa fa-calendar mr-5"></i> 22 Mar 2017</span>
-                            </div>
-                        </div>
-                        <div class="recent-post media">
-                            <div class="post-thumb media-left">
-                                <a href="#">
-                                    <img class="media-object" src="<?php echo THEME_PATH;?>assets/images/blog/thumb_3.jpg" alt="">
-                                </a>
-                            </div>
-                            <div class="media-body">
-                                <p class="mb-5">
-                                    <a href="#">Lorem ipsum dolor sit amet consetetur</a>
-                                </p>
-                                <span class="color-theme"><i class="fa fa-calendar mr-5"></i> 22 Mar 2017</span>
-                            </div>
-                        </div>
-                        <div class="recent-post media">
-                            <div class="post-thumb media-left">
-                                <a href="#">
-                                    <img class="media-object" src="<?php echo THEME_PATH;?>assets/images/blog/thumb_4.jpg" alt="">
-                                </a>
-                            </div>
-                            <div class="media-body">
-                                <p class="mb-5">
-                                    <a href="#"> Proin et nibh ut massa lacinia lacinia</a>
-                                </p>
-                                <span class="color-theme"><i class="fa fa-calendar mr-5"></i> 22 Mar 2017</span>
-                            </div>
-                        </div>
-                        <div class="recent-post media">
-                            <div class="post-thumb media-left">
-                                <a href="#">
-                                    <img class="media-object" src="<?php echo THEME_PATH;?>assets/images/blog/thumb_5.jpg" alt="">
-                                </a>
-                            </div>
-                            <div class="media-body">
-                                <p class="mb-5">
-                                    <a href="#">Primis in faucibus orci luctus et ultrices posuere</a>
-                                </p>
-                                <span class="color-theme"><i class="fa fa-calendar mr-5"></i> 22 Mar 2017</span>
-                            </div>
-                        </div>
+                        <?php endforeach; ?>
+<!--                        <div class="recent-post media">-->
+<!--                            <div class="post-thumb media-left">-->
+<!--                                <a href="#">-->
+<!--                                    <img class="media-object" src="--><?php //echo THEME_PATH;?><!--assets/images/blog/thumb_2.jpg" alt="">-->
+<!--                                </a>-->
+<!--                            </div>-->
+<!--                            <div class="media-body">-->
+<!--                                <p class="mb-5">-->
+<!--                                    <a href="#">Vestibulum ante ipsum primis in faucibus luctus</a>-->
+<!--                                </p>-->
+<!--                                <span class="color-theme"><i class="fa fa-calendar mr-5"></i> 22 Mar 2017</span>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="recent-post media">-->
+<!--                            <div class="post-thumb media-left">-->
+<!--                                <a href="#">-->
+<!--                                    <img class="media-object" src="--><?php //echo THEME_PATH;?><!--assets/images/blog/thumb_3.jpg" alt="">-->
+<!--                                </a>-->
+<!--                            </div>-->
+<!--                            <div class="media-body">-->
+<!--                                <p class="mb-5">-->
+<!--                                    <a href="#">Lorem ipsum dolor sit amet consetetur</a>-->
+<!--                                </p>-->
+<!--                                <span class="color-theme"><i class="fa fa-calendar mr-5"></i> 22 Mar 2017</span>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="recent-post media">-->
+<!--                            <div class="post-thumb media-left">-->
+<!--                                <a href="#">-->
+<!--                                    <img class="media-object" src="--><?php //echo THEME_PATH;?><!--assets/images/blog/thumb_4.jpg" alt="">-->
+<!--                                </a>-->
+<!--                            </div>-->
+<!--                            <div class="media-body">-->
+<!--                                <p class="mb-5">-->
+<!--                                    <a href="#"> Proin et nibh ut massa lacinia lacinia</a>-->
+<!--                                </p>-->
+<!--                                <span class="color-theme"><i class="fa fa-calendar mr-5"></i> 22 Mar 2017</span>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="recent-post media">-->
+<!--                            <div class="post-thumb media-left">-->
+<!--                                <a href="#">-->
+<!--                                    <img class="media-object" src="--><?php //echo THEME_PATH;?><!--assets/images/blog/thumb_5.jpg" alt="">-->
+<!--                                </a>-->
+<!--                            </div>-->
+<!--                            <div class="media-body">-->
+<!--                                <p class="mb-5">-->
+<!--                                    <a href="#">Primis in faucibus orci luctus et ultrices posuere</a>-->
+<!--                                </p>-->
+<!--                                <span class="color-theme"><i class="fa fa-calendar mr-5"></i> 22 Mar 2017</span>-->
+<!--                            </div>-->
+<!--                        </div>-->
                     </div>
                 </div>
                 <!-- End Recent Posts -->
